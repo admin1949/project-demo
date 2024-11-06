@@ -21,13 +21,31 @@ import {
 import { Root } from "./xmind/node/topic";
 import DrewToolbar from "./components/DrewToolbar.vue";
 import InfoToolBar from "./components/InfoToolBar.vue";
+import { Branch } from "./xmind/node/branch";
+import { XMIND_EVENT } from "@eric/antv-xmind";
 
 const xmind = useXmindGraph();
 onMounted(() => {
+  const root1 = Root.getTemplate();
+  const createChild = () =>
+    Array.from({ length: 4 }, (_, idx) => {
+      const b = Branch.getTemplate();
+      b.data!.text = "分支主题" + (idx + 1);
+      return b;
+    });
+  root1.children = createChild();
+
   xmind.initGraphData({
-    nodes: [Root.getTemplate()],
+    nodes: [root1],
     tools: [],
     edges: [],
+  });
+  xmind.xmindGraph.once(XMIND_EVENT.ALL_NODE_LAYOUT_END, () => {
+    const graph = xmind.xmindGraph.getGraph();
+    if (!graph) {
+      return;
+    }
+    graph.centerContent();
   });
 });
 
