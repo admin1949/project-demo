@@ -74,11 +74,13 @@ export const useGraphLayout = ({ xmindGraph }: { xmindGraph: XmindGraph }) => {
       layoutList.find((i) => i.layout.type === type) || layoutList[0];
     selectedLayoutName.value = item.name;
   };
+
   getTypeByGraph();
   const setLayout = (item: { name: string; layout: X6GraphLayout }) => {
     selectedLayoutName.value = item.name;
     xmindGraph.setLayoutInstance(item.layout);
   };
+  
   onScopeDispose(
     xmindGraph.on(XMIND_EVENT.LAYOUT_INSTANCE_CHANGE, getTypeByGraph)
   );
