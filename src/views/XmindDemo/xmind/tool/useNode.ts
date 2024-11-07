@@ -90,7 +90,10 @@ export const useNode = (config: {
     } else {
       parent.originInitData.children = [meatData];
     }
-    console.log("create child success", meatData);
+    if (parent.hideChild) {
+      parent.hideChild = false;
+      parent.showChildren();
+    }
     xmindGraph.refreshMap();
   };
 

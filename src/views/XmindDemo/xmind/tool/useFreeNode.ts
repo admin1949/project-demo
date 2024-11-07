@@ -234,7 +234,11 @@ export const useFreeNode = (config: {
     const changedIds = new Map<string, string>();
     const removeEdges: Edge[] = [];
 
-    vnodes.forEach((vnode, idx) => {
+    vnodes.forEach((vnode) => {
+      const idx = freezeNode.findIndex((node) => node.id === vnode.id);
+      if (idx < 0) {
+        console.warn("自由节点移动报错")
+      }
       if (isX6GraphFreeNode(vnode)) {
         vnode.dropPoint = [...lastPosition[idx]];
         freeNodeIds.push(vnode.id);
