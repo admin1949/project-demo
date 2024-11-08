@@ -4,10 +4,10 @@ import {
   XmindToolGraph,
   XmindNode,
   isX6GraphNode,
+  XmindCellData
 } from "@eric/antv-xmind";
 import { GroupTool } from "../graphToolNode/group";
 import { Summary } from "../graphToolNode/summary";
-import { XmindCellData } from "@eric/antv-xmind/vue";
 import { Root } from "../node/topic";
 
 export const useToolNode = (config: { xmindToolGraph: XmindToolGraph }) => {

@@ -10,8 +10,8 @@ import {
   resolveAutoChildenNodeType,
   VectroyRootNode,
   eachChild,
+  XmindCellData, XmindToolData
 } from "@eric/antv-xmind";
-import { XmindCellData, XmindToolData } from "@eric/antv-xmind/vue";
 import { Root } from "../node/topic";
 import { FreeNode } from "../node/freeNode";
 
