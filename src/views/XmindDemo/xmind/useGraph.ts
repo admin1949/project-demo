@@ -12,6 +12,7 @@ import {
   XmindToolVNodeInit,
   XmindVNodeInit,
 } from "@eric/antv-xmind";
+import { RainbowNodeCssCreater } from "@eric/antv-xmind-style"
 
 // 引入资源文件
 import "./node";
@@ -30,7 +31,7 @@ export const useXmindGraph = (isLightMode = true) => {
   const container = useTemplateRef<HTMLDivElement>("container");
   const graphRef = shallowRef<Graph>();
 
-  const xmindGraph = new XmindGraph();
+  const xmindGraph = new XmindGraph(new RainbowNodeCssCreater());
   xmindGraph.isLightMode = isLightMode;
   xmindGraph.focusNode = (node) => {
     const graph = xmindGraph.getGraph();

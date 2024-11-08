@@ -28,7 +28,7 @@ const xmind = useXmindGraph();
 onMounted(() => {
   const root1 = Root.getTemplate();
   const createChild = () =>
-    Array.from({ length: 4 }, (_, idx) => {
+    Array.from({ length: 6 }, (_, idx) => {
       const b = Branch.getTemplate();
       b.data!.text = "分支主题" + (idx + 1);
       return b;

@@ -9,8 +9,8 @@ import {
   Point,
   PositiondTree,
   CoveredTreeInfo,
+  XmindCellData,
 } from "@eric/antv-xmind";
-import { XmindCellData } from "@eric/antv-xmind/vue";
 import { Edge, NodeView } from "@antv/x6";
 import { Branch } from "../node/branch";
 import { FreeNode } from "../node/freeNode";

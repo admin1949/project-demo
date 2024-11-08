@@ -33,7 +33,7 @@ import {
   useEdit,
   useAutoSize,
   useNodeStyle,
-} from "@eric/antv-xmind/vue";
+} from "@eric/antv-xmind-vue-hooks";
 
 const props = defineProps<{
   node: Cell;

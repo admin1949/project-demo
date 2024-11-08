@@ -20,13 +20,11 @@
 
 <script lang="ts" setup name="summery-tool">
 import { Cell, Graph } from "@antv/x6";
-import {
-  useNodeData,
+import {   useNodeData,
   XmindToolData,
   useEdit,
   useAutoSize,
-  useNodeStyle,
-} from "@eric/antv-xmind/vue";
+  useNodeStyle, } from "@eric/antv-xmind-vue-hooks";
 
 const props = defineProps<{
   node: Cell;

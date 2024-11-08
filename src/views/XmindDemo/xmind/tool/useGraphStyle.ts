@@ -1,17 +1,21 @@
 import {
-  LogicMapLayout,
-  MindMapLayout,
-  OrganizationalStructureLayout,
-  X6GraphLayout,
   XMIND_EVENT,
   XmindGraph,
+  NodeCssCreater
 } from "@eric/antv-xmind";
 import {
   CodeNodeCssCreater,
-  NodeCssCreater,
   RainbowNodeCssCreater,
   UniverseCssCreater,
-} from "@eric/antv-xmind/vue";
+} from "@eric/antv-xmind-style";
+import {
+  LogicMapLayout,
+  MindMapLayout,
+  OrganizationalStructureLayout,
+  XmindLayout,
+  IndentedLRLayout,
+  IndentedRLLayout
+} from "@eric/antv-xmind-layout";
 
 export const cssList = [
   {
@@ -64,6 +68,14 @@ export const layoutList = [
     name: "组织架构图",
     layout: new OrganizationalStructureLayout(),
   },
+  {
+    name: "树形图右",
+    layout: new IndentedLRLayout(),
+  },
+  {
+    name: "树形图左",
+    layout: new IndentedRLLayout(),
+  },
 ];
 
 export const useGraphLayout = ({ xmindGraph }: { xmindGraph: XmindGraph }) => {
@@ -76,11 +88,11 @@ export const useGraphLayout = ({ xmindGraph }: { xmindGraph: XmindGraph }) => {
   };
 
   getTypeByGraph();
-  const setLayout = (item: { name: string; layout: X6GraphLayout }) => {
+  const setLayout = (item: { name: string; layout: XmindLayout }) => {
     selectedLayoutName.value = item.name;
     xmindGraph.setLayoutInstance(item.layout);
   };
-  
+
   onScopeDispose(
     xmindGraph.on(XMIND_EVENT.LAYOUT_INSTANCE_CHANGE, getTypeByGraph)
   );

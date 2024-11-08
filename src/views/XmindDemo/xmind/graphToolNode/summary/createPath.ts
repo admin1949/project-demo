@@ -18,10 +18,6 @@ L 11.79 84.54
 C 11.79 93.30 8.93 96.82 0 99 
 L 0 99 Z
 `;
-const p = Path.parse(path);
-const bbox = p.bbox();
-const other = p.clone().rotate(180, bbox ? bbox.center : [0, 0]);
-console.log(p, other);
 const createOriginPath = (h: number) => {
   if (h < 100) {
     return path;
