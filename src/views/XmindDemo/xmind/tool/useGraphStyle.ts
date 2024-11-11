@@ -14,7 +14,8 @@ import {
   OrganizationalStructureLayout,
   XmindLayout,
   IndentedLRLayout,
-  IndentedRLLayout
+  IndentedRLLayout,
+  IndentedHLayout
 } from "@eric/antv-xmind-layout";
 
 export const cssList = [
@@ -75,6 +76,10 @@ export const layoutList = [
   {
     name: "树形图左",
     layout: new IndentedRLLayout(),
+  },
+  {
+    name: "树形图中",
+    layout: new IndentedHLayout(),
   },
 ];
 
