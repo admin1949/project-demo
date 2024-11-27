@@ -1,15 +1,14 @@
 import type { Extent } from "ol/extent";
-import type { ServerMethods, PerformanceResult } from "../util/type";
+import type { ServerMethods, TransferRes } from "t-worker";
 
 export type ClusterMethods = ServerMethods<
   {
     addFeaturesInternal(f: Float64Array): void;
-  },
-  {
+    
     cluster(
       distance: number,
       ratio: number
-    ): PerformanceResult<{
+    ): TransferRes<{
       ids: Uint32Array;
       extents: Float64Array;
     }>;
@@ -17,6 +16,6 @@ export type ClusterMethods = ServerMethods<
     getFeaturesInExtent(
       extent: Extent,
       isTotal: boolean
-    ): PerformanceResult<Uint32Array>;
+    ): TransferRes<Uint32Array>;
   }
 >;

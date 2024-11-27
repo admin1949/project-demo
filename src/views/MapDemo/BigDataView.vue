@@ -16,7 +16,7 @@ import {
 } from "@/components/MapContainer/MapStyle";
 import { resolveIconConfig } from "@/components/MapContainer/MapStyle/Icon";
 import { CRSTypes, WithStylePoint } from "@/components/MapContainer/utils";
-import { WorkerClient } from "@/worker/util/client";
+import { WorkerClient } from "t-worker";
 import testWorkerUrl from "@/worker/testWorker/index?worker&url";
 import { Fns } from "@/worker/testWorker/type";
 import { useLastAsync } from "@/hooks/useAsync";
@@ -38,6 +38,7 @@ provide(MAP_STYLE_INJECT_KEY, mapStyle);
 
 const worker = new WorkerClient<Fns>(testWorkerUrl, {
   name: "test.worker",
+  type: "module",
 });
 onUnmounted(() => {
   worker.dispose();

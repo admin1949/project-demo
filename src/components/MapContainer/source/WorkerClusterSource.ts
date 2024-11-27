@@ -1,4 +1,4 @@
-import { WorkerClient } from "@/worker/util/client";
+import { WorkerClient } from "t-worker";
 import { ClusterMethods } from "@/worker/cluster/type";
 import { getUid } from "ol";
 import type { Extent } from "ol/extent";
@@ -46,6 +46,7 @@ export class ClusterSource extends VectorSource<RenderFeature> {
 
     this.worker = new WorkerClient<ClusterMethods>(clusterWorkerHerf, {
       name: "cluster.worker",
+      type: "module",
     });
 
     this.minResolution = options.minResolution || 0;

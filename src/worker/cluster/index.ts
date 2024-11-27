@@ -7,7 +7,7 @@ import {
   createOrUpdateFromCoordinate,
   getCenter,
 } from "ol/extent";
-import { WorkerServer } from "../util/server";
+import { WorkerServices, createTransferRes } from "t-worker";
 import { add as addCoordinate, scale as scaleCoordinate } from "ol/coordinate";
 import { ClusterMethods } from "./type";
 
@@ -46,18 +46,18 @@ class RemoteVectorSource {
   getFeaturesInExtentList(
     extent: Extent,
     isTotal: boolean
-  ): [any, Transferable[]] {
+  ) {
     const tree = isTotal ? this.featuresRtree : this.clusterRtree;
 
     const list = tree.getInExtent(extent);
     const res = Uint32Array.from(list.map((i) => i[0]));
-    return [res, [res.buffer]];
+    return createTransferRes(res, [res.buffer]);;
   }
 
   cluster(
     mapDistance: number,
     interpolationRatio: number
-  ): [any, Transferable[]] {
+  ) {
     const clustered = new Set<number>();
     const extent = createEmpty();
 
@@ -108,13 +108,10 @@ class RemoteVectorSource {
     this.clusterRtree.clear();
     this.clusterRtree.load(clusterExtets, clusterSimpleFeatures);
 
-    return [
-      {
-        ids: idArr,
-        extents,
-      },
-      [idArr.buffer, extents.buffer],
-    ];
+    return createTransferRes({
+      ids: idArr,
+      extents,
+    }, [idArr.buffer, extents.buffer]);
   }
 
   createClusterPosition(
@@ -138,18 +135,14 @@ class RemoteVectorSource {
 
 const instance = new RemoteVectorSource();
 
-new WorkerServer<ClusterMethods>({
-  fns: {
-    addFeaturesInternal(features) {
-      return instance.addFeaturesInternal(features);
-    },
+export default new WorkerServices<ClusterMethods>({
+  addFeaturesInternal(features) {
+    return instance.addFeaturesInternal(features);
   },
-  pfns: {
-    cluster(mapDistance, interpolationRatio) {
-      return instance.cluster(mapDistance, interpolationRatio);
-    },
-    getFeaturesInExtent(extent, isTotal) {
-      return instance.getFeaturesInExtentList(extent, isTotal);
-    },
+  cluster(mapDistance, interpolationRatio) {
+    return instance.cluster(mapDistance, interpolationRatio);
+  },
+  getFeaturesInExtent(extent, isTotal) {
+    return instance.getFeaturesInExtentList(extent, isTotal);
   },
 });

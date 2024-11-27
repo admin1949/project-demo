@@ -1,15 +1,11 @@
 import type { Extent } from "ol/extent";
-import type { PerformanceResult, AwaitAble, ServerMethods } from "../util/type";
+import type { TransferRes, AwaitAble, ServerMethods } from "t-worker";
 
-export type Fns = ServerMethods<
-  {
-    getNumber(input: number): AwaitAble<number>;
-  },
-  {
-    getString: (input: string) => AwaitAble<PerformanceResult<string>>;
-    getRandamPoints(
-      size: number,
-      extent?: Extent
-    ): AwaitAble<PerformanceResult<Float64Array>>;
-  }
->;
+export type Fns = ServerMethods<{
+  getNumber(input: number): AwaitAble<number>;
+  getString: (input: string) => AwaitAble<TransferRes<string>>;
+  getRandamPoints(
+    size: number,
+    extent?: Extent
+  ): AwaitAble<TransferRes<Float64Array>>;
+}>;
